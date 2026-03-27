@@ -10,7 +10,8 @@
   "explorer.confirmDragAndDrop": false,
   "files.associations": {
     "*.tikz": "latex",
-    "*.f": "fortran"
+    "*.f": "fortran",
+    "*.FCMacro": "python"
   },
   "git.openRepositoryInParentFolders": "always",
   // --- editor ---
@@ -19,7 +20,7 @@
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
   },
   "editor.renderWhitespace": "all",
   "files.trimTrailingWhitespace": true,
@@ -48,11 +49,11 @@
   // --- language specific ---
   // black is too slow to run it on save
   "[python]": {
-    "editor.formatOnSave": false,
     "editor.tabSize": 4,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    }
+      "source.organizeImports": "explicit"
+    },
+    "justMyCode": false
   },
   "isort.args": [ "--profile", "black" ],
   "[lex]": {
@@ -91,5 +92,9 @@
   "C_Cpp.clang_format_fallbackStyle": "Google",
   "recall.extraCss": [
     "{{yzhang.markdown-all-in-one}}/node_modules/katex/dist/katex.min.css"
-  ]
+  ],
+  "diffEditor.ignoreTrimWhitespace": false,
+  "terminal.integrated.inheritEnv": false,
+  "latex-workshop.formatting.latex": "tex-fmt",
+  "chat.agent.maxRequests": 200
 }
