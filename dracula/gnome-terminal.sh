@@ -1,4 +1,9 @@
 #! /bin/bash
+
+if command -v gnome-terminal 2>&1 >/dev/null; then
+  exit 1
+fi
+
 target_dir="$HOME/dracula/gnome-terminal"
 mkdir --parents $target_dir
 git clone --quiet https://github.com/dracula/gnome-terminal $target_dir

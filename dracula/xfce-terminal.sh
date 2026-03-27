@@ -8,6 +8,11 @@ apply_theme() {
   unset IFS
 }
 
+if ! command -v xfce-terminal 2>&1 >/dev/null; then
+  echo "xfce-terminal could not be found"
+  exit 1
+fi
+
 mkdir --parents $HOME/dracula
 pushd $HOME/dracula >/dev/null
 if [ ! -d "xfce4-terminal" ]; then
