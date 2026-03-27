@@ -2,20 +2,14 @@
 user=$(whoami)
 filename="/etc/gdm/custom.conf"
 
-if ! grep --quiet "AutomaticLoginEnable=" $filename; then
-  sudo sed -i '/\[daemon\]/a AutomaticLoginEnable=True' $filename
-else
-  # uncomment
-  sudo sed -i '/AutomaticLoginEnable=/s/^\s*#?\s*//' $filename
-  # set to true
-  sudo sed -i 's/AutomaticLoginEnable=.*$/AutomaticLoginEnable=true/' $filename
+# inserts category header if it is not already present
+if ! grep -q "\[daemon\]" $filename 2>/dev/null; then
+  echo "[daemon]" | sudo tee -a $filename >/dev/null
 fi
+# removes any old setting, no matter if it is commented out or not, to prevent duplicates
+sudo sed -i "/AutomaticLoginEnable=/d" $filename
 
-if ! grep --quiet "AutomaticLogin=" $filename; then
-  sudo sed -i "/AutomaticLoginEnable=true/a AutomaticLogin=$user" $filename
-else
-  # uncomment
-  sudo sed -i '/AutomaticLoginEnable=/s/^\s*#?\s*//' $filename
-  # set to current user
-  sudo sed -i "s/AutomaticLogin=.*$/AutomaticLogin=$user/" $filename
-fi
+sudo sed -i "/AutomaticLogin=/d" $filename
+
+# inserts the config lines just below the section header
+sudo sed -i "/\[daemon\]/a AutomaticLoginEnable=True\nAutomaticLogin=${user}" $filename
