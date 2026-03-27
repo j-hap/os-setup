@@ -1,10 +1,12 @@
 #! /bin/bash
 
+# debian
 if command -v apt >/dev/null 2>&1; then
   echo "apt"
   exit 1
 fi
 
+# fedora
 if command -v dnf &>/dev/null; then
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
   sudo tee /etc/yum.repos.d/vscode.repo >/dev/null <<EOF
@@ -19,6 +21,7 @@ EOF
   sudo dnf --assumeyes install code
 fi
 
+# arch
 if command -v paru &>/dev/null; then
   paru -S visual-studio-code-bin
 elif command -v pacman &>/dev/null; then
@@ -31,22 +34,13 @@ fi
 extensions=(
   adpyke.codesnap
   alefragnani.Bookmarks
-  charliermarsh.ruff
+  charliermarsh.ruff # pulls in all necessary python extensions
   dqisme.sync-scroll
   daohong-emilio.yash
   dracula-theme.theme-dracula
   foxundermoon.shell-format
   frenya.vscode-recall
   James-Yu.latex-workshop
-  ms-python.isort
-  ms-python.python
-  ms-python.black-formatter
-  ms-python.vscode-pylance
-  ms-toolsai.jupyter
-  ms-toolsai.jupyter-keymap
-  ms-toolsai.jupyter-renderers
-  ms-toolsai.vscode-jupyter-cell-tags
-  ms-toolsai.vscode-jupyter-slideshow
   ms-vscode.cmake-tools
   ms-vscode.cpptools
   ms-vscode.cpptools-extension-pack
