@@ -11,7 +11,11 @@ sudo perl ./install-tl --profile ./texlive.profile --no-interaction
 popd
 rm -r ~/texlive-installation
 
-sudo pacman --sync --noconfirm --needed libxcrypt-compat # needed for biber
+if command -v dnf &>/dev/null; then
+  sudo dnf install --assumeyes libxcrypt-compat # needed for biber
+elif command -v pacman >/dev/null 2>&1; then
+  sudo pacman --sync --noconfirm --needed libxcrypt-compat # needed for biber
+fi
 
 latexmk_packages=(
   perl-File-Copy
